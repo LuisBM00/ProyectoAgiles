@@ -1,4 +1,5 @@
 const Notificaciones = require("./Notificaciones");
+
 const { MongoClient } = require('mongodb');
 
 function Avisar() {
@@ -11,6 +12,7 @@ function Avisar() {
         const collection = await client.db("ProyectoIOT").collection("Usuario").findOne();
         var correo = collection["correo"];
         Notificaciones.EnviarCorreo(correo);
+
         client.close();
 
     });
