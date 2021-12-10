@@ -1,5 +1,40 @@
-window.onload=function(){
 
+
+
+window.onload=function(){
+	
+	fetch('http://localhost:3000/sensorA')
+	.then(response => response.json())
+	.then(data =>{
+		console.log(data);
+		NivelBasura(data[0]["lectura"]);
+		EstadoSensor(data);});
+
+	fetch('http://localhost:3000/Alertas')
+	.then(response => response.json())
+	.then(data =>{
+		
+		for(i=0; i<5;i++){
+			let fecha= new Date(data[i]["fecha"]).toLocaleString();
+			
+		document.getElementById("alerta"+(i+1)).innerHTML=data[i]["mensaje"];
+		document.getElementById("fechaAlerta"+(i+1)).innerHTML=fecha;
+		document.getElementById("medio"+(i+1)).innerHTML=data[i]["medio"];
+		}
+  });
+
+setInterval(() => {
+	
+
+	fetch('http://localhost:3000/sensorA')
+	.then(response => response.json())
+	.then(data =>{
+		console.log(data);
+		NivelBasura(data[0]["lectura"]);
+		EstadoSensor(data);
+  })},15000);
+  
+function NivelBasura(lectura){
 var chart = new CanvasJS.Chart("chartContainer", {
     
     theme: "light1", // "light1", "light2", "dark1", "dark2"
@@ -17,14 +52,21 @@ var chart = new CanvasJS.Chart("chartContainer", {
         indexLabelFontSize: 16,
         indexLabel: "{label} - {y}%",
         dataPoints: [
-            { y: 50, label: "Basura" },
-            { y: 19, label: "Espacio libre" }
+            { y: (100-lectura), label: "Basura" },
+            { y: lectura, label: "Espacio libre" }
          
         ]
     }]
 });
 
 chart.render();
+}
+
+function EstadoSensor(datos){
+	let data=datos.map(e=>{
+
+		return {x:new Date(e["fecha"]),y:parseInt(e["lectura"])}
+	})
 
 var chart2 = new CanvasJS.Chart("chartContainer2", {
 	animationEnabled: true,
@@ -32,7 +74,7 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 		text: "Estado del Sensor"
 	},
 	axisX:{
-		valueFormatString: "DD MMM",
+		valueFormatString: "DD MMM HH:m",
 		crosshair: {
 			enabled: true,
 			snapToDataPoint: true
@@ -52,26 +94,11 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 	data: [{
 		type: "area",
 		xValueFormatString: "DD MMM",
-		yValueFormatString: "$##0.00",
-		dataPoints: [
-			{ x: new Date(2016, 07, 01), y: 100 },
-			{ x: new Date(2016, 07, 02), y: 78 },
-			{ x: new Date(2016, 07, 03), y: 68 },
-			{ x: new Date(2016, 07, 04), y: 66 },
-			{ x: new Date(2016, 07, 05), y: 60 },
-			{ x: new Date(2016, 07, 08), y: 56 },
-			{ x: new Date(2016, 07, 09), y: 50 },
-			{ x: new Date(2016, 07, 10), y: 50 },
-			{ x: new Date(2016, 07, 11), y: 45 },
-			{ x: new Date(2016, 07, 12), y: 44 },
-			{ x: new Date(2016, 07, 15), y: 34 },
-			{ x: new Date(2016, 07, 16), y: 30 },
-			{ x: new Date(2016, 07, 17), y: 29 },
-			{ x: new Date(2016, 07, 18), y: 20 },
-			{ x: new Date(2016, 07, 19), y: 19 },
-		
-		]
+		yValueFormatString: "%0.0",
+		dataPoints:data
 	}]
 });
 chart2.render();
 }
+}
+

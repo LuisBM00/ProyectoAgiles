@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
- 
- 
+
+
   <!-- Argon CSS -->
   <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css">
+  <link rel="stylesheet" href="index.css" type="text/css">
 
 </head>
 
@@ -36,6 +37,25 @@
             </li>
 
           </ul>
+          <br>
+
+          <p>Me gustaria recibir notificaciones por: </p>
+          <form action="/" method="post" >
+          <div class="form-check" >
+            <input id="correo" class="form-check-input" type="checkbox" value="1" name="correo" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Correo
+            </label>
+          </div>
+          <div class="form-check">
+            <input id="socket" class="form-check-input" type="checkbox" value="1" name="pagina" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+              Desde la pagina
+            </label>
+            <button id="aplicarCambios" type="submit" class="btn btn-success">Aplicar</button>
+          </div>
+        </form>
+
           <!-- Divider -->
           <hr class="my-3">
           <!-- Heading -->
@@ -45,43 +65,92 @@
       </div>
     </div>
   </nav>
-  <!-- Main content -->
+
   <div class="main-content" id="panel">
-    <!-- Topnav -->
+
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
-      
+
     </nav>
-    <!-- Header -->
-    <!-- Header -->
+
     <div class="header bg-primary pb-6">
       <div class="container-fluid">
 
       </div>
     </div>
-    <!-- Page content -->
+
     <div class="container-fluid mt--6">
       <br>
       <br>
       <br>
-       <br>
-       <br>
-       
+      <br>
+      <div id="aviso" class="alert alert-danger" role="alert">
+
+      </div>
+      <br>
+      <br>
+
+
       <div id="chartContainer" style="height: 370px; width:75%;"></div>
       <br>
       <br>
       <div id="chartContainer2" style="height: 370px; width:75%;"></div>
-      <!-- Footer -->
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold"> Alerta <span id="fechaAlerta1" class="badge bg-light text-dark">12-21-12 11:00</span></div>
+            <p id="alerta1"></p>
+            <span id="medio1" class="badge bg-success"></span>
+          </div>
+       
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto"> 
+            <div class="fw-bold">Alerta <span id="fechaAlerta2" class="badge bg-light text-dark">12-21-12 11:00</span></div>
+            <p id="alerta2">Content for list item</p>
+            <span id="medio2" class="badge bg-success"></span>
+          </div>
+          
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Alerta <span id="fechaAlerta3" class="badge bg-light text-dark">12-21-12 11:00</span></div>
+            <p id="alerta3">Content for list item</p>
+            <span id="medio3" class="badge bg-success"></span>
+          </div>
+          
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Alerta <span id="fechaAlerta4" class="badge bg-light text-dark">12-21-12 11:00</span></div>
+            <p id="alerta4">Content for list item</p>
+            <span id="medio4" class="badge bg-success"></span>
+          </div>
+          
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Alerta <span id="fechaAlerta5" class="badge bg-light text-dark">12-21-12 11:00</span></div>
+            <p id="alerta5">Content for list item</p>
+            <span id="medio5" class="badge bg-success"></span>
+           
+          </div>
+          
+        </li>
+
+      </ol>
 
     </div>
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->
 
+
  
-
-  <script src="Graficas.js"></script>
-
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 
+  <script src="Graficas.js"></script>
+  <script src="ClienteSockets.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </html>
